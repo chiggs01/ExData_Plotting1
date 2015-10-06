@@ -1,5 +1,6 @@
 ## This script downloads the UCI Individual household electric power 
-## consumption Data Set and plots ...
+## consumption Data Set and plots the Global Active Power against
+## frequency.
 
 plot1 <- function() {
     
@@ -23,11 +24,10 @@ plot1 <- function() {
     myRows<-myData$Date=="1/2/2007"|myData$Date=="2/2/2007"
     myData<-myData[myRows,]
 
-    #Add column for converted date/time
-    myData$DateTime<-strptime(paste(myData$Date,myData$Time),"%d/%m/%Y %H:%M:%S")
-    
-    #display chart
+    #display chart and save to file
     hist(myData$Global_active_power, col="red", main="Global Active Power", 
                 xlab="Global Active Power (kilowatts)")
-    myData   
+    dev.copy(png, file="plot1.png", width = 480, height = 480)
+    dev.off()
+
 }
